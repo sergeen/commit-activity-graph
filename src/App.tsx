@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import './App.css';
-import { CommitActivityContext } from './CommitActivityContext';
-import CommitActivityChart from './Chart';
+import { useContext } from "react";
+import "./App.css";
+import { CommitActivityContext } from "./CommitActivityContext";
+import CommitActivityChart from "./Chart";
 
 function App() {
   const context = useContext(CommitActivityContext);
@@ -15,11 +15,22 @@ function App() {
 
   return (
     <>
-      <div>Commit activity graph</div>
+      <div>
+        <h1>Commit activity graph</h1>
+      </div>
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <CommitActivityChart data={data} />
+        <>
+          <CommitActivityChart data={data} />
+          <div>
+          <small>
+            <a href="https://github.com/sergeen/commit-activity-graph">Github</a>
+            <br />
+            <a href="https://observablehq.com/d/3a24d2a8586e2701">Observable public notebook</a>
+          </small>
+          </div>
+        </>
       )}
     </>
   );
