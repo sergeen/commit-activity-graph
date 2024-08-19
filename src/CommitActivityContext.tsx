@@ -1,19 +1,11 @@
-import React, { useEffect, useState, createContext, ReactNode } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import axios from "axios";
-import { CommitActivity } from "./types.ts";
+import { CommitActivity, CommitActivityContextProps, CommitActivityContextProviderProps } from "./types.ts";
 
 const url = "https://api.github.com/repos/facebook/react/stats/commit_activity";
 
-interface CommitActivityContextProps {
-  data: CommitActivity[];
-  loading: boolean;
-}
-
 export const CommitActivityContext = createContext<CommitActivityContextProps | undefined>(undefined);
 
-interface CommitActivityContextProviderProps {
-  children: ReactNode;
-}
 
 export const CommitActivityContextProvider: React.FC<CommitActivityContextProviderProps> = ({ children }) => {
   const [data, setData] = useState<CommitActivity[]>([]);
