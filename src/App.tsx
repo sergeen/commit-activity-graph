@@ -1,24 +1,30 @@
-import { useContext } from 'react'
-import './App.css'
-import { CommitActivityContext } from './CommitActivityContext'
+import { useContext } from 'react';
+import './App.css';
+import { CommitActivityContext } from './CommitActivityContext';
 
 function App() {
-  const { data, loading } = useContext(CommitActivityContext)
+  const context = useContext(CommitActivityContext);
+
+  if (!context) {
+    return <div>Error: CommitActivityContext is undefined</div>;
+  }
+
+  const { data, loading } = context;
 
   return (
     <>
-      <div>Commit actvity graph</div>
+      <div>Commit activity graph</div>
       {loading ? (
         <div>Loading...</div>
       ) : (
         <div>
-          {data.map((week: any, index: number) => (
+          {data.map((week, index) => (
             <div key={index}>{week.total}</div>
           ))}
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
