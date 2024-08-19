@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import './App.css';
 import { CommitActivityContext } from './CommitActivityContext';
+import CommitActivityChart from './Chart';
 
 function App() {
   const context = useContext(CommitActivityContext);
 
+  // Standar practice, check if the context is available
   if (!context) {
-    return <div>Error: CommitActivityContext is undefined</div>;
+    return <div>App must be used within a CommitActivityContextProvider</div>;
   }
 
   const { data, loading } = context;
@@ -17,11 +19,7 @@ function App() {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div>
-          {data.map((week, index) => (
-            <div key={index}>{week.total}</div>
-          ))}
-        </div>
+        <CommitActivityChart data={data} />
       )}
     </>
   );
