@@ -70,7 +70,9 @@ const D3Chart: React.FC<D3ChartProps> = ({ data }) => {
       .join('rect')
       .attr('width', cellSize - 1)
       .attr('height', cellSize - 1)
-      .attr('x', (d: DayData) => timeWeek.count(d3.utcYear(d.date), d.date) * cellSize + 0.5)
+ 
+      .attr('x', (d: DayData) => timeWeek.count(d3.utcYear(new Date(d.date)), new Date(d.date)) * cellSize + 0.5)
+
       .attr('y', (d: DayData) => countDay(new Date(d.date).getUTCDay()) * cellSize + 0.5)
       .attr('fill', (d: DayData) => color(d.value))
       .append('title')
@@ -78,7 +80,7 @@ const D3Chart: React.FC<D3ChartProps> = ({ data }) => {
 
     const month = year.append('g')
       .selectAll('g')
-      .data((values: DayData[]) => d3.utcMonths(d3.utcMonth(values[0].date), values.slice(-1)[0].date))
+      .data((values: DayData[]) => d3.utcMonths(d3.utcMonth(new Date(values[0].date)), new Date(values[values.length - 1].date)))
       .join('g');
 
     month.filter((_, i: number) => i > 0)
@@ -117,7 +119,7 @@ const D3Chart: React.FC<D3ChartProps> = ({ data }) => {
       .data(legendData)
       .enter()
       .append('text')
-      .attr('x', (d, i) => i * legendHeight + legendHeight)
+      .attr('x', (_, i) => i * legendHeight + legendHeight)
       .attr('y', legendHeight + 10)
       .attr('text-anchor', 'middle')
       .attr('font-size', 10)
